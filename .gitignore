@@ -1,0 +1,5 @@
+*.pyc
+tests*
+*_analysis/*
+_analysis/*
+*__pycache__*
