@@ -5,6 +5,8 @@ from misc import demean, isbad
 from numpy.linalg import LinAlgError
 from scipy.stats import f
 
+from warnings import warn
+
 
 def info_criteria(L, k, m):
     """
@@ -277,6 +279,9 @@ def fit_var(data, p=None, maxp=None, mode='OLS', detrend=True):
         else: 
             assert isinstance(maxp, int) and maxp > 0, "Maximum model order must be a positive integer."
         p = tsdata_to_varmo(data, maxp, mode)[3] # using HQC criterium by default
+        if p<1:
+            warn(f"VAR model order selection has failed. Setting it to 1.")
+            p=1
     elif p==1: 
         # call VAR1 fitness (faster version)
         return fit_var1(data, mode)
